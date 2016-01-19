@@ -36,6 +36,10 @@ module OmniAuth
       def raw_info
         @raw_info ||= access_token.get(CUSTOM_PROVIDER_ME_URL).parsed
       end
+
+      def callback_url
+        options[:redirect_uri] || (full_host + script_name + callback_path)
+      end
     end
   end
 end
