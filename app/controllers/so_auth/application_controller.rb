@@ -3,7 +3,7 @@ module SoAuth
 
     protect_from_forgery
 
-    before_filter :check_cookie
+    before_action :check_cookie
     def check_cookie
       if !cookie_valid?
         session[:user_id] = nil
@@ -42,9 +42,6 @@ module SoAuth
 
     helper_method :signed_in?
     helper_method :current_user
-
-
-
 
     private
 

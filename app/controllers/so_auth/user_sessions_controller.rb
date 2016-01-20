@@ -1,11 +1,9 @@
 class SoAuth::UserSessionsController < SoAuth::ApplicationController
-  before_filter :login_required, :only => [ :destroy ]
-
-  respond_to :html
+  before_action :login_required, only: [ :destroy ]
 
   # omniauth callback method
   def create
-    omniauth = env['omniauth.auth']
+    omniauth = request.env['omniauth.auth']
 
     user = User.find_by_id(omniauth['uid'])
     if not user
@@ -14,6 +12,7 @@ class SoAuth::UserSessionsController < SoAuth::ApplicationController
       user.id = omniauth['uid']
     end
     user.email = omniauth['info']['email'] if user.respond_to?(:email)
+    user.role = omniauth['extra']['role_id'] if user.respond_to?(:role)
     user.save
 
     session[:user_id] = user.id
