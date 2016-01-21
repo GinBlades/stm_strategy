@@ -1,4 +1,4 @@
 # desc "Explaining what the task does"
-# task :so_auth do
+# task :stm_strategy do
 #   # Task goes here
 # end

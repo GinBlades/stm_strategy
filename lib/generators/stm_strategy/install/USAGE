@@ -1,0 +1,8 @@
+Description:
+    Generate config and initializer for a client of StmStrategyProvider.
+
+Example:
+    rails generate stm_strategy:install
+
+    This will create:
+        config/initializers/omniauth.rb

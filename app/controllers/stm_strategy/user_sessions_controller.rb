@@ -1,4 +1,4 @@
-class SoAuth::UserSessionsController < SoAuth::ApplicationController
+class StmStrategy::UserSessionsController < StmStrategy::ApplicationController
   before_action :login_required, only: [ :destroy ]
 
   # omniauth callback method

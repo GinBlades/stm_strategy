@@ -1,4 +1,4 @@
-module SoAuth
+module StmStrategy
   class ApplicationController < ActionController::Base
 
     protect_from_forgery
@@ -11,7 +11,7 @@ module SoAuth
     end
 
     def cookie_valid?
-      cookies[:so_auth].present? && session[:user_id].present? && cookies[:so_auth].to_s == session[:user_id].to_s
+      cookies[:stm_strategy].present? && session[:user_id].present? && cookies[:stm_strategy].to_s == session[:user_id].to_s
     end
 
     def login_required
@@ -28,7 +28,7 @@ module SoAuth
     end
 
     def auth_redirect
-      observable_redirect_to "/auth/so?origin=#{request.protocol}#{request.host_with_port}#{request.fullpath}"
+      observable_redirect_to "/auth/stm?origin=#{request.protocol}#{request.host_with_port}#{request.fullpath}"
     end
 
     def current_user

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    so_auth (0.0.3)
+    stm_strategy (0.0.4)
       omniauth
       omniauth-oauth2
       rails (>= 4.2.5)
@@ -91,7 +91,7 @@ GEM
     multi_test (0.1.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    nokogiri (1.6.7.1)
+    nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     oauth2 (1.0.0)
       faraday (>= 0.8, < 0.10)
@@ -172,8 +172,8 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   rspec-rails
-  so_auth!
   sqlite3
+  stm_strategy!
 
 BUNDLED WITH
-   1.11.2
+   1.10.6

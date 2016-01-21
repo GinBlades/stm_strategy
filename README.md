@@ -1,46 +1,31 @@
-# SoAuth
+# StmStrategy
 
-A Rails engine that makes it easy to delegate authentication for a Rails
-site to
-[SoAuthProvider](https://github.com/jagthedrummer/so_auth_provider).
-See the [SoAuthClient](https://github.com/jagthedrummer/so_auth_client)
+Shamelessly copied from [Jeremy Green's so_auth gem](https://github.com/jagthedrummer/so_auth). The provider for this version is [StmAuth](https://github.com/GinBlades/stm_auth).
+
+An example project of using this gem is [StmNotes](https://github.com/GinBlades/stm_notes)
 project for an example of using this gem.
 
-See [http://www.octolabs.com/so-auth](http://www.octolabs.com/so-auth)
-for more details.
-
-
-Usage
+# Usage
 ==============
 
-## Add `so_auth` to the `Gemfile`
+## Add `stm_strategy` to the `Gemfile`
 
-```ruby
-gem 'so_auth'
-```
-
-## Generate an initializer
+    gem 'stm_strategy'
 
 Run this command
 
-```bash
-rails generate so_auth:install
-```
+    rails g stm_strategy:install
 
-This will create the following files
+This will create the `config/initializers/omniauth.rb`
 
-```
-config/initializers/omniauth.rb
-```
+## Create a new application in your Provider instance
 
-## Create a new application in your `SoAuthProvider` instance
-
-Go to the `/oauth/applications` endpoint on the `SoAuthProvider`
+Go to the `/oauth/applications` endpoint on the Provider
 installation that you want to integrate with.  For development this will
 probably be `http://localhost:3000/oauth/applications`.
 
 Create a new application, and set the callback URL to
-`http://localhost:3001/auth/so/callback`. Change the port if you
+`http://localhost:3001/auth/stm/callback`. Change the port if you
 plan to run your client app on a different port. (See the optional
 section below.)
 
@@ -50,48 +35,37 @@ Secret.
 ## Set some environment variables for your client
 
 In your new client project (where you installed this gem), you should
-set some environment variables.  Using something like `foreman` is
-probably the best so that you can just set them in a `.env` file.
+set some secrets.
 
-```
-AUTH_PROVIDER_URL=http://localhost:3000
-AUTH_PROVIDER_APPLICATION_ID=1234
-AUTH_PROVIDER_SECRET=5678
-AUTH_PROVIDER_ME_URL=/oauth/me.json
-```
-
-Be sure to use the Application Id you got in the last step as
-`AUTH_APPLICATION_APPLICATION_ID` and the Secret as `AUTH_APPLICATION_SECRET`.
+    development:
+        secret_key_base: rakesecret
+        auth_provider_url: http://localhost:3000
+        auth_provider_application_id: provider_provided
+        auth_provider_secret: provider_provided
 
 ## Create a `User` model
 
 If you haven't already done it, you should create a `User` model
 
-```bash
-rails generate model user email:string
-```
+    rails g model user email
 
 Then be sure to run migrations.
 
-```bash
-rake db:migrate; rake db:test:prepare
-```
+    rake db:migrate
 
 ## Update `ApplicationController`
 
 Change your `ApplicationController` to inherit from
-`SoAuth::ApplicationController`. The first line should look like this.
+`StmStrategy::ApplicationController`. The first line should look like this.
 
-```ruby
-class ApplicationController < SoAuth::ApplicationController
-```
+    class ApplicationController < StmStrategy::ApplicationController
 
 ## Protect some stuff in a controller
 
-Use a `before_filter` to protect some controller actions.
+Use a `before_action` to protect some controller actions.
 
 ```ruby
-before_filter :login_required
+before_action :login_required
 ```
 
 
@@ -100,7 +74,7 @@ before_filter :login_required
 
 ## OPTIONAL : Change the default port of your new project
 
-Since we're relying on `so_auth_provider` to provide authentication, we need
+Since we're relying on `stm_strategy_provider` to provide authentication, we need
 to run our new project on a different port in development.  Open up `config/boot.rb`
 and add this to the bottom of the file.  If you want to use a port other
 than `3001` just change the port as appropriate.

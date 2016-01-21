@@ -1,8 +1,8 @@
 require 'omniauth-oauth2'
 module OmniAuth
   module Strategies
-    class So < OmniAuth::Strategies::OAuth2
-      option :name, "so"
+    class Stm < OmniAuth::Strategies::OAuth2
+      option :name, :stm
 
       uid {
         raw_info['id'] 

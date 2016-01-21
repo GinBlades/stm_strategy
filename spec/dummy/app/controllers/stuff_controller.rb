@@ -1,4 +1,4 @@
-class StuffController < SoAuth::ApplicationController
+class StuffController < StmStrategy::ApplicationController
 
   before_filter :login_required, :only => :private
 
